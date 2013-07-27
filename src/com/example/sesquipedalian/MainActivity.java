@@ -144,54 +144,11 @@ public class MainActivity extends Activity implements OnInitListener {
 		return true;
 	}
 	
-	public void clickButton(View v) {
-		
-
+	public void clickButton(View v) {	
 		 speak(v);
-		// Log.d("Sack", "IT WORKS");
-		// String text = txtText.getText().toString(); //USE THIS TO CREATE THE TEXT YOU WANT TO SPEAK
-//		tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	private void replaceSentence(String sentence){
 		sentence = sentence.replaceAll("\\.","");
@@ -216,7 +173,8 @@ public class MainActivity extends Activity implements OnInitListener {
 				
 				String[] words  = sentence.split("\\s+");
 				
-				
+				//JSoup was not importing properly... Here's a hack
+				//It is a hackathon!
 				for (int i = 0; i < words.length; i++){
 					String match = words[i]+"/";
 					int index1 = html.indexOf(match);
@@ -240,18 +198,8 @@ public class MainActivity extends Activity implements OnInitListener {
 	
 	private void replaceWords(final String[] sentence, final int index){
 		if(index == sentence.length){
-			//------------------------------------------------------------
-			//newSentence is complete here
-			//call a new function and pass newSentence as a parameter.
-			//have it read newSentence
-			//------------------------------------------------------------
-			
-			//DAAAAAAAAAAYUUUUUUUUUUM
-//			TextView text = (TextView)findViewById(R.id.textView1);
-//			text.setText(newSentence);
 	    	finalText.setText(newSentence);
 			tts.speak(newSentence, TextToSpeech.QUEUE_FLUSH, null);
-			Log.d("poop",newSentence);
 			newSentence = "";
 			return;
 		}
@@ -274,10 +222,11 @@ public class MainActivity extends Activity implements OnInitListener {
 				}else{
 					max = word;
 				}
-				
+
 				if(max.length() == 0) max = word;
 				
 				newSentence = newSentence + max + " "; 
+				//Do a get request on the next word
 				replaceWords(sentence, index + 1);
 			}
 		}.execute();
@@ -355,6 +304,7 @@ public class MainActivity extends Activity implements OnInitListener {
 		return new HttpGet(url);
 	}
 	
+	//JSON VERSION
     private class GetRequest extends AsyncTask<Void, Void, JSONObject> {
 		private HttpUriRequest getRequest;
 		
@@ -386,6 +336,7 @@ public class MainActivity extends Activity implements OnInitListener {
 		
 	}
     
+    //REGULAR JAVA VERSION
     private class GetRequestString extends AsyncTask<Void, Void, String> {
 		private HttpUriRequest getRequest;
 		
